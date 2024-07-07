@@ -2,16 +2,19 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PDFDocument } from 'pdf-lib';
 import { ResumeService } from '../../services/resume.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-upload-ia',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './upload-ia.component.html',
   styleUrl: './upload-ia.component.css',
 })
 export class UploadIaComponent {
   textInput: string = '';
+  customInstructions: string = '';
+  responseText: string = '';
 
   private readonly resumeService = inject(ResumeService);
 
@@ -29,7 +32,7 @@ export class UploadIaComponent {
       const file = files[0];
       if (file.type === 'application/pdf') {
         const text = await this.extractTextFromPDF(file);
-        this.sendTextToService(text, 'Some instructions');
+        this.sendTextToService(text, this.customInstructions);
       }
     }
   }
@@ -40,7 +43,7 @@ export class UploadIaComponent {
       const file = input.files[0];
       if (file.type === 'application/pdf') {
         const text = await this.extractTextFromPDF(file);
-        this.sendTextToService(text, 'Some instructions');
+        this.sendTextToService(text, this.customInstructions);
       }
     }
   }
@@ -56,18 +59,18 @@ export class UploadIaComponent {
   }
 
   onEnter() {
-    const instructions = 'Some instructions'; // You can customize this as needed
-    this.sendTextToService(this.textInput, instructions);
+    this.sendTextToService(this.textInput, this.customInstructions);
   }
 
   sendTextToService(prompt: string, instructions: string) {
-    this.resumeService.sendText(prompt, instructions).subscribe(
-      (response) => {
+    this.resumeService.sendText(prompt, instructions).subscribe({
+      next: (response) => {
         console.log('Text sent to service successfully:', response);
+        this.responseText = response;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error sending text to service:', error);
-      }
-    );
+      },
+    });
   }
 }

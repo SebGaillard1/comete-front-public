@@ -6,18 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ResumeService {
-  private baseurl = 'http://localhost:5037';
+  private baseUrl = 'http://localhost:5037';
 
   private http = inject(HttpClient);
 
-  sendText(prompt: string, instructions: string): Observable<any> {
+  sendText(prompt: string, instructions: string): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = {
-      prompt: prompt,
-      instructions: instructions,
-    };
-    return this.http.post<any>(this.baseurl + '/Reports/GenerateResume', body, {
+    const body = { prompt, instructions };
+    return this.http.post(this.baseUrl + '/Reports/GenerateResume', body, {
       headers: headers,
+      responseType: 'text', // Assurez-vous de recevoir la réponse en tant que texte brut
     });
   }
 }
