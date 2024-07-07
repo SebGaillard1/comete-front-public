@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MyResume } from '../components/my-resume-list/my-resume-list.component';
+import { Folder } from '../components/folder-list/folder-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class ResumeService {
     const body = { prompt, instructions };
     return this.http.post(this.baseUrl + '/Reports/GenerateResume', body, {
       headers: headers,
-      responseType: 'text', // Assurez-vous de recevoir la réponse en tant que texte brut
+      responseType: 'text',
     });
   }
 
@@ -24,5 +25,24 @@ export class ResumeService {
 
   // }
 
-  // addFolder(folderName: string)
+  createFolder(name: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      idUtilisateur: 0,
+      name: name,
+    };
+    return this.http.post(this.baseUrl + '/Folders', body, {
+      headers: headers,
+    });
+  }
+
+  getFolders(idUtilisateur: number): Observable<Folder[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Folder[]>(
+      `${this.baseUrl}/Folders?idUtilisateur=${idUtilisateur}`,
+      {
+        headers: headers,
+      }
+    );
+  }
 }
