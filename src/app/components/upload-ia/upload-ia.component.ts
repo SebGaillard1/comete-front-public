@@ -61,13 +61,13 @@ export class UploadIaComponent {
   }
 
   sendTextToService(prompt: string, instructions: string) {
-    // this.resumeService.sendText(prompt, instructions).subscribe(
-    //   (response) => {
-    //     console.log('Text sent to service successfully:', response);
-    //   },
-    //   (error) => {
-    //     console.error('Error sending text to service:', error);
-    //   }
-    // );
+    this.resumeService.sendText(prompt, instructions).subscribe(
+      (response) => {
+        console.log('Text sent to service successfully:', response);
+      },
+      (error) => {
+        console.error('Error sending text to service:', error);
+      }
+    );
   }
 }
