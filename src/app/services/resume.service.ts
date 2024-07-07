@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MyResume } from '../components/my-resume-list/my-resume-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -18,4 +19,10 @@ export class ResumeService {
       responseType: 'text', // Assurez-vous de recevoir la réponse en tant que texte brut
     });
   }
+
+  // getMyResume(): Observable<MyResume[]> {
+
+  // }
+
+  // addFolder(folderName: string)
 }
