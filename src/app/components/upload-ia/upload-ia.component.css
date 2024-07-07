@@ -1,0 +1,27 @@
+.file-upload-container {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  border-radius: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upload-area {
+  cursor: pointer;
+}
+
+.upload-icon {
+  width: 50px;
+  height: 50px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
