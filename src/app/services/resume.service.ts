@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { MyResume } from '../components/my-resume-list/my-resume-list.component';
 import { Folder } from '../components/folder-list/folder-list.component';
 
@@ -48,6 +48,18 @@ export class ResumeService {
     );
   }
 
+  getFoldersForUser(
+    idUtilisateur: number
+  ): Observable<{ id: number; name: string }[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<{ id: number; name: string }[]>(
+      `${this.baseUrl}/Folders?idUtilisateur=${idUtilisateur}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
   saveResume(resume: MyResume): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
@@ -56,6 +68,19 @@ export class ResumeService {
       {
         headers: headers,
       }
+    );
+  }
+
+  getAllResumes(idUtilisateur: number): Observable<MyResume[]> {
+    return this.getFoldersForUser(idUtilisateur).pipe(
+      mergeMap((folders: { id: number; name: string }[]) => {
+        const resumeObservables = folders.map((folder) =>
+          this.getResumeOfFolder(folder.id)
+        );
+        return forkJoin(resumeObservables).pipe(
+          map((resumesArray) => resumesArray.flat())
+        );
+      })
     );
   }
 }

@@ -19,26 +19,6 @@ export class MyResumeListComponent implements OnInit {
   displayedColumns: string[] = ['nom', 'contenu', 'dossier', 'tag'];
   private resumeService = inject(ResumeService);
   dataSource: MyResume[] = [];
-  // dataSource: MyResume[] = [
-  //   {
-  //     name: 'Document 1',
-  //     contenu: 'Contenu 1',
-  //     dossier: 'Dossier A',
-  //     tag: 'Tag1',
-  //   },
-  //   {
-  //     name: 'Document 2',
-  //     contenu: 'Contenu 2',
-  //     dossier: 'Dossier B',
-  //     tag: 'Tag2',
-  //   },
-  //   {
-  //     name: 'Document 3',
-  //     contenu: 'Contenu 3',
-  //     dossier: 'Dossier C',
-  //     tag: 'Tag3',
-  //   },
-  // ];
 
   ngOnInit(): void {
     this.loadMyResume();
@@ -46,21 +26,13 @@ export class MyResumeListComponent implements OnInit {
 
   loadMyResume() {
     const idUtilisateur = 1;
-    this.resumeService.getResumeOfFolder(idUtilisateur).subscribe({
-      next: (data: MyResume[]) => {
-        this.dataSource = data;
+    this.resumeService.getAllResumes(idUtilisateur).subscribe({
+      next: (resumes) => {
+        this.dataSource = resumes;
       },
       error: (error) => {
-        console.error('Error fetching resume:', error);
+        console.error(error);
       },
     });
-    // this.resumeService.getFolders(idUtilisateur).subscribe({
-    //   next: (data: Folder[]) => {
-    //     this.dataSource = data;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error fetching folders:', error);
-    //   },
-    // });
   }
 }
