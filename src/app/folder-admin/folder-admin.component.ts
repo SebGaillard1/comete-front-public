@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { FolderDialogComponent } from '../folder-dialog/folder-dialog.component';
 import { ResumeService } from '../services/resume.service';
+import { FolderSelectDialogComponent } from '../components/folder-select-dialog/folder-select-dialog.component';
 
 @Component({
   selector: 'app-folder-admin',

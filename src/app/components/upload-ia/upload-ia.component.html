@@ -39,3 +39,18 @@
   <p>Résumé :</p>
   <p>{{ responseText }}</p>
 </div>
+
+@if (responseText !== "") {
+<button class="add-button" mat-button (click)="openFolderSelectDialog()">
+  Sauvegarder le compte rendu
+</button>
+} @else {
+<button
+  class="add-button"
+  [disabled]="true"
+  mat-button
+  (click)="openFolderSelectDialog()"
+>
+  Sauvegarder le compte rendu
+</button>
+}

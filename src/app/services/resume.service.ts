@@ -21,9 +21,11 @@ export class ResumeService {
     });
   }
 
-  // getMyResume(): Observable<MyResume[]> {
-
-  // }
+  getResumeOfFolder(idUtilisateur: number): Observable<MyResume[]> {
+    return this.http.get<MyResume[]>(
+      `${this.baseUrl}/Folders?idUtilisateur=${idUtilisateur}/reports`
+    );
+  }
 
   createFolder(name: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -40,6 +42,17 @@ export class ResumeService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<Folder[]>(
       `${this.baseUrl}/Folders?idUtilisateur=${idUtilisateur}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  saveResume(resume: MyResume): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      this.baseUrl + '/Reports',
+      { idFolder: resume.id, fileName: resume.name, text: resume.content },
       {
         headers: headers,
       }
