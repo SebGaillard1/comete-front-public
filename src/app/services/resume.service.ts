@@ -28,7 +28,7 @@ export class ResumeService {
   createFolder(name: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = {
-      idUtilisateur: 0,
+      idUtilisateur: 1,
       name: name,
     };
     return this.http.post(this.baseUrl + '/Folders', body, {
