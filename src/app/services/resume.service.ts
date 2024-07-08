@@ -21,9 +21,9 @@ export class ResumeService {
     });
   }
 
-  getResumeOfFolder(idUtilisateur: number): Observable<MyResume[]> {
+  getResumeOfFolder(idFolder: number): Observable<MyResume[]> {
     return this.http.get<MyResume[]>(
-      `${this.baseUrl}/Folders?idUtilisateur=${idUtilisateur}/reports`
+      `${this.baseUrl}/Folders?id=${idFolder}/reports`
     );
   }
 
