@@ -23,7 +23,7 @@ export class ResumeService {
 
   getResumeOfFolder(idFolder: number): Observable<MyResume[]> {
     return this.http.get<MyResume[]>(
-      `${this.baseUrl}/Folders?id=${idFolder}/reports`
+      `${this.baseUrl}/Folders/${idFolder}/reports`
     );
   }
 

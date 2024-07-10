@@ -16,9 +16,9 @@ export interface MyResume {
   styleUrl: './my-resume-list.component.css',
 })
 export class MyResumeListComponent implements OnInit {
-  displayedColumns: string[] = ['nom', 'contenu', 'dossier', 'tag'];
+  displayedColumns: string[] = ['nom', 'contenu'];
   private resumeService = inject(ResumeService);
-  dataSource: MyResume[] = [];
+  dataSource: { id: number; name: string; content: string }[] = [];
 
   ngOnInit(): void {
     this.loadMyResume();
