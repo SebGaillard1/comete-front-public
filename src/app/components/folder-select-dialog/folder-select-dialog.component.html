@@ -5,7 +5,11 @@
     <mat-label>Titre du document</mat-label>
     <input matInput [(ngModel)]="documentTitle" />
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 custom-table"
+  >
     <!-- Nom Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nom</th>

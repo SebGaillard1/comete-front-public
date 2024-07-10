@@ -10,3 +10,16 @@ table {
 h5 {
   margin-top: 30px;
 }
+
+.custom-table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: rgb(238, 238, 238);
+}

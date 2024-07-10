@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { ResumeService } from '../../services/resume.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ResumeComponent } from '../resume/resume.component';
+import { ResumeListComponent } from '../resume-list/resume-list.component';
 
 export interface Folder {
   name: string;
@@ -36,6 +39,7 @@ export class FolderListComponent implements OnInit {
   ];
 
   private resumeService = inject(ResumeService);
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loadFolders();
@@ -60,6 +64,17 @@ export class FolderListComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching folders:', error);
+      },
+    });
+  }
+
+  showResumePopup(row: any): void {
+    this.resumeService.getResumeOfFolder(row.id).subscribe({
+      next: (data) => {
+        console.log('Resume data:', data);
+        this.dialog.open(ResumeListComponent, {
+          data: { resumes: data },
+        });
       },
     });
   }
